@@ -1,0 +1,74 @@
+<task>
+Actualiza recursivamente el contexto de un dominio combinando el conocimiento existente con el nuevo historial de navegación. El resultado debe optimizar futuras navegaciones en ese dominio, orientando y acelerando la ejecución de tareas similares.
+</task>
+
+<context>
+Fecha actual del sistema: {current_date}
+
+Contexto existente del dominio (puede estar vacío):
+---
+{existing}
+---
+
+Historial de la visita (pasos, URLs, objetivos, acciones, evaluaciones, errores):
+---
+{visit_history}
+---
+{conversation_block}{judge_block}
+</context>
+
+<instructions>
+Analiza el historial de navegación para entender la estrategia del agente, la eficiencia de las rutas tomadas, y optimiza el contexto para futuras visitas.
+
+**Análisis requerido:**
+
+1) **Estrategia de navegación del agente**: Identifica el patrón de navegación usado (ej: búsqueda directa, navegación por menús, URLs directas). ¿Qué enfoque funcionó mejor?
+
+2) **Eficiencia de rutas**: Analiza las evaluaciones del agente (campo "Evaluación") y los marcadores de éxito/fallo (✓/✗). Identifica:
+   - Rutas que fueron exitosas y rápidas (marcadas con ✓)
+   - Rutas que fallaron o fueron ineficientes (marcadas con ✗ o evaluaciones negativas)
+   - Número de pasos requeridos para objetivos similares
+
+3) **Lugares y páginas visitadas**: Anota URLs, secciones o páginas visitadas de forma concisa. Prioriza páginas que fueron útiles para el objetivo.
+
+4) **Intención del usuario**: Qué pidió o aclaró en la conversación. Relaciona la intención con las rutas tomadas para entender qué estrategias se alinean mejor con objetivos similares.
+
+5) **Camino más rápido recomendado**: Basándote en el análisis de eficiencia, indica la ruta o secuencia de pasos más rápida y exitosa para objetivos típicos en ese dominio. Incluye:
+   - URLs directas si funcionaron bien
+   - Secuencia de acciones (ej: "Búsqueda: /search?q=X → esperar 2s → click primer resultado")
+   - Evita rutas que hayan fallado o marcadas con ✗
+
+6) **Problemas y fallos encontrados**: Identifica:
+   - Evaluaciones negativas del agente
+   - Errores de navegador (campo "Errores")
+   - Timeouts, URLs que fallan (404 u otros), bloqueos, CAPTCHAs
+   - Formularios problemáticos
+   - Rutas marcadas como fallidas (✗)
+
+7) **Contenido extraído relevante**: Si el historial incluye contenido extraído (campo "Extraído"), identifica qué tipo de información se buscaba y dónde se encontró exitosamente.
+
+**Integración recursiva:**
+- Combina lo nuevo con el contexto existente sin duplicados
+- Prioriza información más reciente cuando haya conflicto
+- Actualiza rutas recomendadas basándote en nueva evidencia de eficiencia
+- Elimina rutas que ahora se sabe que fallan
+
+**PRIORIZACIÓN:** Si te acercas al límite de 1000 caracteres (~250 tokens), prioriza en este orden estricto:
+(1) Problemas y fallos encontrados (ej: "Timeout en /checkout, usar /cart directo")
+(2) Camino más rápido recomendado con evidencia de éxito (ej: "Búsqueda exitosa: /search?q=X → esperar 2s → click primer resultado (✓)")
+(3) Intención del usuario relacionada con rutas exitosas (ej: "Buscar información sobre X: usar /search directo en lugar de navegación por menús")
+(4) Lugares y páginas visitadas que fueron útiles (ej: "Visitado y útil: /products, /search")
+
+Ejemplo de priorización: Si tienes 950 caracteres y necesitas añadir un nuevo problema crítico, elimina primero información de "Lugares visitados" antes de eliminar "Problemas y fallos" o "Camino más rápido". El texto total del resultado no debe superar 1000 caracteres.
+</instructions>
+
+<output_format>
+Responde solo con el texto del contexto actualizado, sin encabezados ni metadatos. 
+
+**Límites estrictos:**
+- Máximo 1000 caracteres (~250 tokens de salida)
+- Prioriza lo esencial para navegación y evita duplicados
+- Si excedes el límite, aplica la priorización indicada en las instrucciones
+
+El contexto debe ser conciso y accionable: información que permita al agente navegar más eficientemente en futuras visitas al mismo dominio.
+</output_format>

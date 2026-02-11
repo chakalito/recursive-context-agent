@@ -1,0 +1,24 @@
+{
+  "tasks": [
+    {
+      "name": "Tarea 1: Tendencias Virales y Street Style (Moda Comercial)",
+      "description": "Identifica tendencias de consumo inmediato y viralidad actual para mover stock en tienda ZARA. Enfócate en 'Street Style' y resúmenes de redes sociales.\n\nINSTRUCCIONES:\n1. Realiza una búsqueda en Google de: 'Viral fashion trends this week', 'TikTok fashion trends summary [Current Month]' y 'Street style trends [Current Season]'.\n2. Accede a artículos recientes de portales de moda comercial y análisis de tendencias: Who What Wear (whowhatwear.com), Refinery29, y secciones de 'Street Style' de Vogue.\n3. IMPORTANTE: Evita pasarelas de alta costura futura. Busca lo que la gente usa HOY.\n4. Para cada artículo relevante, EJECUTA extract() con esta query:\n   \"Analiza el artículo y extrae las prendas y estilos que son tendencia actual para el mercado masivo. Devuelve un JSON válido con una lista 'trends' donde cada elemento tenga: 'garment_type' (string, ej: 'cargo pants', 'baby tee'), 'attributes' (array: colores, telas, estampados), 'style_vibe' (string, ej: 'Y2K', 'Old Money'), 'source_url' (string), 'urgency_level' (number 0.0-1.0, basado en palabras como 'viral', 'selling out', 'everywhere'), y 'zara_category_match' (string: 'Woman', 'TRF', 'Man', 'Kids').\"\n5. Extrae al menos 5 tendencias claras que puedan traducirse en movimiento de ropa física.",
+      "signal_type": "commercial_trends"
+    },
+    {
+      "name": "Tarea 2: Intención de Compra y Búsquedas (Google Trends)",
+      "description": "Detecta qué prendas específicas están buscando los usuarios activamente para comprar esta semana.\n\nINSTRUCCIONES:\n1. Ve a Google Trends (trends.google.com). Si la navegación es compleja, usa Google Search para buscar 'Google Trends report fashion [Current Month]'.\n2. Si logras acceder a la herramienta de exploración, busca términos genéricos y específicos: 'Zara viral', 'outfit ideas', 'moda [temporada actual]', 'vestido invitada' (o términos estacionales relevantes).\n3. Busca términos en ascenso ('Breakout' o 'Aumento repentino').\n4. EJECUTA extract() con esta query:\n   \"Extrae los términos de búsqueda relacionados con ropa que están en aumento ('rising' o 'breakout'). Devuelve un JSON con una lista 'search_insights' con campos: 'query' (string), 'growth_status' (string, ej: 'Breakout', '+300%'), 'implied_product' (string, qué prenda física busca el usuario), 'suggested_action' (string, ej: 'Mover al frente de tienda', 'Destacar en maniquí'), y 'related_keywords' (array).\"\n5. Prioriza términos que describan una prenda física (ej: 'falda leopardo') sobre conceptos abstractos.",
+      "signal_type": "search_demand"
+    },
+    {
+      "name": "Tarea 3: Contexto Táctico (Clima y Calendario Social)",
+      "description": "Determina el reposicionamiento de stock basado en el clima de la semana y el calendario social inmediato (no desfiles lejanos).\n\nINSTRUCCIONES:\n1. Busca el pronóstico del tiempo general para las principales capitales de tu mercado objetivo para los próximos 7 días (ej: 'Weather forecast London Paris Madrid next week').\n2. Busca eventos sociales inminentes que afecten el vestuario: 'Festivales música próximos 15 días', 'Inicio temporada bodas', 'Vuelta al trabajo/cole', 'Fiestas locales'.\n3. EJECUTA extract() con esta query:\n   \"Correlaciona el clima y los eventos cercanos con necesidades de vestimenta. Devuelve un JSON con lista 'context_triggers' con campos: 'trigger_type' (string: 'Weather', 'Event'), 'detail' (string, ej: 'Lluvia intensa', 'Festival Coachella'), 'date_range' (string), 'recommended_stock_focus' (array de strings, ej: ['Trench coats', 'Botas', 'Impermeables'] o ['Lentejuelas', 'Tops cortos']), y 'visual_merchandising_tip' (string, sugerencia de colocación).\"\n4. El objetivo es saber si sacar los abrigos o los vestidos de tirantes esta misma semana.",
+      "signal_type": "contextual_triggers"
+    }
+  ],
+  "metadata": {
+    "total_tasks": 3,
+    "extracted_date": "2026-02-08",
+    "source_file": "tasks/tasks.json"
+  }
+}

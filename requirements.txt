@@ -1,0 +1,15 @@
+# Dependencias principales
+langchain-aws
+browser-use
+
+# Dependencias de AWS
+boto3
+
+# Dependencias adicionales
+playwright
+nest-asyncio
+requests
+
+# Configuración y utilidades
+pydantic-settings
+python-dotenv
